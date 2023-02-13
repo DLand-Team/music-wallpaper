@@ -3,6 +3,8 @@
 #### 介绍
 基于Electron开发的桌面插件，将系统音频可视化显示在桌面壁纸上
 
+备用仓库：https://gitee.com/CrimsonHu/music-wallpaper
+
 #### 实现过程
 1.  通过Windows API实现将Electron界面嵌入到桌面图标层与壁纸层之间
 2.  通过Electron提供的接口抓取系统音频，放入AudioContext中
