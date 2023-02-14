@@ -12,6 +12,7 @@ function createWindow() {
 		focusable: isDev,
 		transparent: !isDev,
 		webPreferences: {
+			webgl: true,
 			preload: path.join(__dirname, 'application-preload.js'),
 		}
 	});
@@ -31,11 +32,20 @@ function createWindow() {
 }
 
 function createTray() {
+	let effect2d1Click = (menuItem) => {
+		mainWindow.webContents.send('EACH_EFFECT_STATE', { name: '2d-1', state: menuItem.checked });
+	}
+	let effect2d2Click = (menuItem) => {
+		mainWindow.webContents.send('EACH_EFFECT_STATE', { name: '2d-2', state: menuItem.checked });
+	}
+	let effect2d3Click = (menuItem) => {
+		mainWindow.webContents.send('EACH_EFFECT_STATE', { name: '2d-3', state: menuItem.checked });
+	}
 	let openClick = () => {
-		mainWindow.webContents.send('EFFECT_STATE', true);
+		mainWindow.webContents.send('ALL_EFFECT_STATE', true);
 	}
 	let closeClick = () => {
-		mainWindow.webContents.send('EFFECT_STATE', false);
+		mainWindow.webContents.send('ALL_EFFECT_STATE', false);
 	}
 	let resizeClick = () => {
 		mainWindow.maximize();
@@ -46,8 +56,12 @@ function createTray() {
 	}
 	let tray = new Tray(path.join(__dirname, './favicon.ico'));
 	const contextMenu = Menu.buildFromTemplate([
-		{ label: 'Open', type: 'radio', checked: true, click: openClick },
-		{ label: 'Close', type: 'radio', checked: false, click: closeClick },
+		{ label: 'Effect 2D 1', type: 'checkbox', checked: true, click: effect2d1Click },
+		{ label: 'Effect 2D 1', type: 'checkbox', checked: true, click: effect2d2Click },
+		{ label: 'Effect 2D 3', type: 'checkbox', checked: true, click: effect2d3Click },
+		{ type: 'separator' },
+		{ label: 'All Open', type: 'radio', checked: true, click: openClick },
+		{ label: 'All Close', type: 'radio', checked: false, click: closeClick },
 		{ type: 'separator' },
 		{ label: 'Resize', type: 'normal', click: resizeClick },
 		{ type: 'separator' },
@@ -60,7 +74,9 @@ function createTray() {
 app.whenReady().then(() => {
 	createWindow();
 	createTray();
-	dialog.showMessageBox({ message: '程序已开启，若需关闭请在托盘栏退出' });
+	if (!isDev) {
+		dialog.showMessageBox({ message: '程序已开启，若需关闭请在托盘栏退出' });
+	}
 	app.on('activate', function () {
 		if (BrowserWindow.getAllWindows().length === 0) createWindow();
 	});

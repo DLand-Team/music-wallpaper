@@ -1,3 +1,5 @@
-import {AppComponent} from "./src/app.component";
+import { AppComponent } from "./src/app.component";
 
-new AppComponent();
+window.onload = () => {
+	new AppComponent();
+}

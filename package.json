@@ -12,6 +12,8 @@
     "gyp-rebuild": "node-gyp rebuild"
   },
   "dependencies": {
+    "babylonjs": "^5.46.0",
+    "babylonjs-materials": "^5.46.0",
     "bindings": "^1.5.0",
     "node-addon-api": "^6.0.0"
   },
