@@ -5,6 +5,8 @@
 
 备用仓库：https://gitee.com/CrimsonHu/music-wallpaper
 
+网络原因，使用gitee发布release，需要获取Windows上打包的可执行文件访问上述链接即可
+
 #### 实现过程
 1.  通过Windows API实现将Electron界面嵌入到桌面图标层与壁纸层之间
 2.  通过Electron提供的接口抓取系统音频，放入AudioContext中
@@ -21,3 +23,4 @@
 
 #### 图片展示
 ![桌面效果图](demo/1.png)
+![桌面效果图](demo/2.png)
